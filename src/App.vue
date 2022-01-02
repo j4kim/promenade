@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import 'dragscroll'
 import Promenade from './Promenade'
 
 export default {
@@ -27,6 +28,10 @@ body, html {
   .dragscroll {
     overflow-x: scroll;
     height: 100%;
+    cursor: grab;
+    &:active{
+      cursor: grabbing;
+    }
   }
 }
 </style>
