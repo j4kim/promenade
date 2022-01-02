@@ -7,10 +7,11 @@
 body, html {
   margin: 0;
   padding: 0;
+  overflow-y: hidden;
 }
 #app {
   height: 100vh;
-  height: -webkit-fill-available;
+  max-height: -webkit-fill-available;
   min-height: auto;
   width: 5000px;
   background-image: url(assets/promenade.svg);
