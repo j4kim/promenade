@@ -3,9 +3,6 @@
     <div class="dragscroll">
       <promenade/>
     </div>
-    <footer>
-      footer here
-    </footer>
   </div>
 </template>
 
