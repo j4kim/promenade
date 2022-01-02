@@ -25,8 +25,11 @@ body, html {
 #app {
   height: 100vh;
   max-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
   .dragscroll {
     overflow-x: scroll;
+    height: 100%;
   }
 }
 </style>

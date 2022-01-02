@@ -37,7 +37,7 @@ export default {
 <style lang="scss">
 main {
   background-image: url(assets/promenade.svg);
-  height: 400px;
+  height: 100%;
   position: relative;
   .point {
     $point-size: 3vh;
