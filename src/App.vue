@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="dragscroll">
+    <div ref="scrollable" class="dragscroll">
       <promenade/>
     </div>
   </div>

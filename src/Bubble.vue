@@ -2,6 +2,7 @@
   <div
     class="bubble"
     :style="{ left: `${x}%`, }"
+    @click.self="$parent.openedBubbleId = null"
   >
     <div class="point-n-line" :style="{ top: `${y}%` }">
       <div class="point"></div>
@@ -10,7 +11,7 @@
     <div
       class="rect"
       :class="opened ? 'opened' : ''"
-      @click="opened = !opened"
+      @click="$emit('open', id, $el.offsetLeft)"
       :style="isDown ?
         { bottom: opened ? '4vh' : `calc(${100-y}% - 60px)` } :
         { top: opened ? '4vh' : `calc(${y}% - 60px)` }
@@ -28,13 +29,12 @@
 
 <script>
 export default {
-  props: ['x', 'y'],
-
-  data: () => ({
-    opened: false
-  }),
+  props: ['id', 'x', 'y'],
 
   computed: {
+    opened() {
+      return this.id === this.$parent.openedBubbleId
+    },
     isDown() {
       return this.y > 50
     }
