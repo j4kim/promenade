@@ -1,7 +1,6 @@
 <template>
   <main
     :style="{ width: `${width}px` }"
-    @click.self="openBubbleId = null"
   >
     <bubble
       v-for="point in points"
@@ -9,7 +8,6 @@
       :id="point.toString()"
       :x="point[0]/sections"
       :y="point[1]"
-      @open="openBubble"
     >
     </bubble>
   </main>
@@ -30,8 +28,7 @@ export default {
       [63, 41.5],
       [85, 59],
     ],
-    items: 5,
-    openBubbleId: null
+    items: 5
   }),
 
   computed: {
@@ -65,11 +62,6 @@ export default {
     resize() {
       this.appHeight = window.innerHeight
       document.documentElement.style.setProperty('--app-height', `${this.appHeight}px`)
-    },
-    openBubble(id, left, behavior = 'smooth') {
-      if (id === this.openBubbleId) return
-      this.$parent.$refs.scrollable.scrollTo({ left, behavior })
-      this.openBubbleId = id
     }
   }
 }

@@ -2,7 +2,6 @@
   <div
     class="bubble"
     :style="{ left: `${x}%`, }"
-    @click.self="$parent.openBubbleId = null"
   >
     <div class="point-n-line" :style="{ top: `${y}%` }">
       <div class="point"></div>
@@ -23,7 +22,7 @@
       </div>
       <div v-else class="content">
         Content here
-        <button @click.stop="$parent.openBubbleId = null">close</button>
+        <button @click.stop="isOpen = false">close</button>
       </div>
     </div>
   </div>
@@ -33,10 +32,11 @@
 export default {
   props: ['id', 'x', 'y'],
 
+  data: () => ({
+    isOpen: false
+  }),
+
   computed: {
-    isOpen() {
-      return this.id === this.$parent.openBubbleId
-    },
     isDown() {
       return this.y > 50
     }
@@ -44,13 +44,16 @@ export default {
 
   methods: {
     open() {
+      this.isOpen = true
       let offsetLeft = this.$el.offsetLeft + 50
       let windowWidth = window.innerWidth
       // /!\ keep same values as in scss .rect.isopen width
       let rectWidth = Math.min(400, 0.92 * windowWidth)
       let margin = windowWidth - rectWidth
       let left = offsetLeft - margin/2
-      this.$emit('open', this.id, left)
+      document.querySelector('.dragscroll').scrollTo({
+        left, behavior: 'smooth'
+      })
     }
   }
 }
