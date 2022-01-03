@@ -19,12 +19,12 @@
       "
     >
       <div v-if="!isOpen" class="summary">
-        <div v-html="item.title.rendered"/>
+        <div v-html="title"/>
         <img :src="thumbnailUrl">
       </div>
       <div v-else class="content">
         <header>
-          <div v-html="item.title.rendered"/>
+          <div v-html="title"/>
           <button @click.stop="$parent.openBubbleId = null">x</button>
         </header>
       </div>
@@ -44,7 +44,14 @@ export default {
       return this.y > 50
     },
     thumbnailUrl() {
-      return this.item._embedded["wp:featuredmedia"][0].media_details.sizes.thumbnail.source_url
+      return this.item._type === 'post' ?
+        this.item._embedded["wp:featuredmedia"][0].media_details.sizes.thumbnail.source_url :
+        this.item.images[0].src
+    },
+    title() {
+      return this.item._type === 'post' ?
+        this.item.title.rendered :
+        this.item.name
     }
   },
 

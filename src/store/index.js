@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { orderBy } from 'lodash'
 
 Vue.use(Vuex)
 
@@ -21,14 +22,26 @@ export default new Vuex.Store({
     posts: [],
     products: [],
   },
+
   mutations: {
     setPosts(state, posts) {
-      state.posts = posts
+      state.posts = posts.map(p => ({ ...p, _type: 'post' }))
     },
     setProducts(state, products) {
-      state.products = products
+      state.products = products.map(p => ({ ...p, _type: 'product' }))
     },
   },
+
+  getters: {
+    items({ posts, products }) {
+      return orderBy(
+        [...posts, ...products],
+        item => item.date || item.date_created,
+        ['desc']
+      )
+    }
+  },
+
   actions: {
     fetchData({ commit }) {
       api('wp/v2/posts?_embed')

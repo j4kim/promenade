@@ -36,7 +36,7 @@ export default {
 
   computed: {
     items() {
-      return this.$store.state.posts
+      return this.$store.getters.items
     },
     points() {
       return this.items.map((item, i) => {
