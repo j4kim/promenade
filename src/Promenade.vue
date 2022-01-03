@@ -1,20 +1,20 @@
 <template>
   <main :style="{ width: `${width}px` }">
-    <point
+    <bubble
       v-for="point in points"
       :key="point.toString()"
       :x="point[0]/sections"
       :y="point[1]"
     >
-    </point>
+    </bubble>
   </main>
 </template>
 
 <script>
-import Point from './Point'
+import Bubble from './Bubble'
 
 export default {
-  components: { Point },
+  components: { Bubble },
 
   data: () => ({
     width: 3000,
