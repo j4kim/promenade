@@ -5,10 +5,10 @@
   >
     <bubble
       v-for="point in points"
-      :key="point.toString()"
-      :id="point.toString()"
-      :x="point[0]/sections"
-      :y="point[1]"
+      :key="point.item.id"
+      :item="point.item"
+      :x="point.x / sections"
+      :y="point.y"
       @open="openBubble"
     >
     </bubble>
@@ -31,26 +31,29 @@ export default {
       [63, 41.5],
       [85, 59],
     ],
-    items: 5,
     openBubbleId: null
   }),
 
   computed: {
+    items() {
+      return this.$store.state.posts
+    },
     points() {
-      return [...Array(this.items)].map((_, i) => {
+      return this.items.map((item, i) => {
         let len = this.positions.length
         let slice = Math.floor(i / len)
         let position = this.positions[i % len]
-        return [
-          position[0] + (slice * 100),
-          position[1]
-        ]
+        return {
+          x: position[0] + (slice * 100),
+          y: position[1],
+          item
+        }
       })
     },
     sections() {
       // if there is 4 positions available, and 6 items, we'll have 1.5 sections
       // the +1 is a margin
-      return (this.items + 1) / this.positions.length
+      return (this.items.length + 1) / this.positions.length
     },
     width() {
       return this.appHeight * this.ratio * this.sections

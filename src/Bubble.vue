@@ -19,11 +19,14 @@
       "
     >
       <div v-if="!isOpen" class="summary">
-        Summary here
+        <div v-html="item.title.rendered"/>
+        <img :src="thumbnailUrl">
       </div>
       <div v-else class="content">
-        Content here
-        <button @click.stop="$parent.openBubbleId = null">close</button>
+        <header>
+          <div v-html="item.title.rendered"/>
+          <button @click.stop="$parent.openBubbleId = null">x</button>
+        </header>
       </div>
     </div>
   </div>
@@ -31,14 +34,17 @@
 
 <script>
 export default {
-  props: ['id', 'x', 'y'],
+  props: ['item', 'x', 'y'],
 
   computed: {
     isOpen() {
-      return this.id === this.$parent.openBubbleId
+      return this.item.id === this.$parent.openBubbleId
     },
     isDown() {
       return this.y > 50
+    },
+    thumbnailUrl() {
+      return this.item._embedded["wp:featuredmedia"][0].media_details.sizes.thumbnail.source_url
     }
   },
 
@@ -50,7 +56,7 @@ export default {
       let rectWidth = Math.min(400, 0.92 * windowWidth)
       let margin = windowWidth - rectWidth
       let left = offsetLeft - margin/2
-      this.$emit('open', this.id, left)
+      this.$emit('open', this.item.id, left)
     }
   }
 }
@@ -99,6 +105,25 @@ export default {
       width: $width;
       height: $height;
       z-index: 1;
+    }
+    .summary {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      div {
+        flex-grow: 1;
+      }
+      img {
+        width: 100%;
+        height: 50%;
+        object-fit: cover
+      }
+    }
+    .content {
+      header {
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 }
