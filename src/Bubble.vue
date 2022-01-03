@@ -44,7 +44,6 @@ export default {
 
 <style lang="scss">
 .bubble {
-  cursor: pointer;
   position: absolute;
   height: 100%;
   width: min(90vw, 400px);
@@ -71,6 +70,7 @@ export default {
     }
   }
   .rect {
+    cursor: pointer;
     $width: min(140px, 40vw);
     $height: min(180px, 40vh);
     width: $width;
@@ -81,7 +81,7 @@ export default {
     transition: width .3s, height .4s, bottom .4s, top .4s;
     &.opened {
       $width: min(400px, 92vw);
-      $height: min(600px, 92vh);
+      $height: min(600px, 92%);
       width: $width;
       height: $height;
     }

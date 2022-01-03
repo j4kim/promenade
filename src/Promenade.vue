@@ -17,7 +17,8 @@ export default {
   components: { Bubble },
 
   data: () => ({
-    width: 3000,
+    appHeight: undefined, // will be redefined in resize method
+    ratio: 3, // map image has a ratio of 3/1, this is fixed
     positions: [
       [23, 61],
       [45, 77],
@@ -43,6 +44,9 @@ export default {
       // if there is 4 positions available, and 6 items, we'll have 1.5 sections
       // the +1 is a margin
       return (this.items + 1) / this.positions.length
+    },
+    width() {
+      return this.appHeight * this.ratio * this.sections
     }
   },
 
@@ -53,9 +57,8 @@ export default {
 
   methods: {
     resize() {
-      // map image has a ratio of 3/1, this is fixed
-      let fullMapWidth = this.$el.offsetHeight * 3
-      this.width = fullMapWidth * this.sections
+      this.appHeight = window.innerHeight
+      document.documentElement.style.setProperty('--app-height', `${this.appHeight}px`)
     }
   }
 }
