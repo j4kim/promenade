@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import animateScrollTo from 'animated-scroll-to'
 import Bubble from './Bubble'
 
 export default {
@@ -66,9 +67,12 @@ export default {
       this.appHeight = window.innerHeight
       document.documentElement.style.setProperty('--app-height', `${this.appHeight}px`)
     },
-    openBubble(id, left, behavior = 'smooth') {
+    openBubble(id, left) {
       if (id === this.openBubbleId) return
-      this.$parent.$refs.scrollable.scrollTo({ left, behavior })
+      animateScrollTo([left, 0], {
+        elementToScroll: this.$parent.$refs.scrollable,
+        minDuration: 400
+      })
       this.openBubbleId = id
     }
   }

@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "animated-scroll-to": "^2.2.0",
     "core-js": "^3.6.5",
     "dragscroll": "^0.0.8",
     "vue": "^2.6.11",
