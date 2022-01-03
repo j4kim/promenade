@@ -2,7 +2,7 @@
   <div
     class="bubble"
     :style="{ left: `${x}%`, }"
-    @click.self="$parent.openedBubbleId = null"
+    @click.self="$parent.openBubbleId = null"
   >
     <div class="point-n-line" :style="{ top: `${y}%` }">
       <div class="point"></div>
@@ -10,14 +10,14 @@
     </div>
     <div
       class="rect"
-      :class="opened ? 'opened' : ''"
+      :class="isOpen ? 'isopen' : ''"
       @click="$emit('open', id, $el.offsetLeft)"
       :style="isDown ?
-        { bottom: opened ? '4vh' : `calc(${100-y}% - 60px)` } :
-        { top: opened ? '4vh' : `calc(${y}% - 60px)` }
+        { bottom: isOpen ? '4vh' : `calc(${100-y}% - 60px)` } :
+        { top: isOpen ? '4vh' : `calc(${y}% - 60px)` }
       "
     >
-      <div v-if="!opened" class="summary">
+      <div v-if="!isOpen" class="summary">
         Summary here
       </div>
       <div v-else class="content">
@@ -32,8 +32,8 @@ export default {
   props: ['id', 'x', 'y'],
 
   computed: {
-    opened() {
-      return this.id === this.$parent.openedBubbleId
+    isOpen() {
+      return this.id === this.$parent.openBubbleId
     },
     isDown() {
       return this.y > 50
@@ -79,7 +79,7 @@ export default {
     box-sizing: border-box;
     padding: 16px;
     transition: width .3s, height .4s, bottom .4s, top .4s;
-    &.opened {
+    &.isopen {
       $width: min(400px, 92vw);
       $height: min(600px, 92%);
       width: $width;
