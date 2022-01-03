@@ -84,6 +84,7 @@ export default {
       $height: min(600px, 92%);
       width: $width;
       height: $height;
+      z-index: 1;
     }
   }
 }
