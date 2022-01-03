@@ -71,8 +71,8 @@ export default {
   }
   .rect {
     cursor: pointer;
-    $width: min(140px, 40vw);
-    $height: min(180px, 40vh);
+    $width: min(120px, 40vw);
+    $height: min(140px, 40vh);
     width: $width;
     height: $height;
     left: 50px;
