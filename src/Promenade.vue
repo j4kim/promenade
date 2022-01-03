@@ -1,20 +1,21 @@
 <template>
   <main :style="{ width: `${width}px` }">
-    <div
-      class="point"
+    <point
       v-for="point in points"
       :key="point.toString()"
-      :style="{
-        left: `${point[0]/sections}%`,
-        top: `${point[1]}%`,
-      }"
+      :x="point[0]/sections"
+      :y="point[1]"
     >
-    </div>
+    </point>
   </main>
 </template>
 
 <script>
+import Point from './Point'
+
 export default {
+  components: { Point },
+
   data: () => ({
     width: 3000,
     positions: [
@@ -67,15 +68,5 @@ main {
   background-size: auto 100%;
   height: 100%;
   position: relative;
-  .point {
-    $point-size: 3vh;
-    position: absolute;
-    background: rgb(223, 163, 195);
-    width: $point-size;
-    height: $point-size;
-    border-radius: $point-size / 2;
-    margin-left: -$point-size / 2;
-    margin-top: -$point-size / 2;
-  }
 }
 </style>
