@@ -1,17 +1,20 @@
 <template>
   <div
     class="bubble"
-    :style="{
-      left: `${x}%`,
-      top: `${y}%`,
-    }"
+    :style="{ left: `${x}%`, }"
   >
-    <div class="point"></div>
-    <div class="line"></div>
+    <div class="point-n-line" :style="{ top: `${y}%` }">
+      <div class="point"></div>
+      <div class="line"></div>
+    </div>
     <div
       class="rect"
       :class="opened ? 'opened' : ''"
       @click="opened = !opened"
+      :style="isDown ?
+        { bottom: opened ? '4vh' : `calc(${100-y}% - 60px)` } :
+        { top: opened ? '4vh' : `calc(${y}% - 60px)` }
+      "
     >
       <div v-if="!opened" class="summary">
         Summary here
@@ -29,7 +32,13 @@ export default {
 
   data: () => ({
     opened: false
-  })
+  }),
+
+  computed: {
+    isDown() {
+      return this.y > 50
+    }
+  }
 }
 </script>
 
@@ -37,38 +46,42 @@ export default {
 .bubble {
   cursor: pointer;
   position: absolute;
+  height: 100%;
+  width: min(90vw, 400px);
   .point, .line, .rect {
     position: absolute;
     background: white;
+    border-radius: 16px;
   }
-  .point {
-    $point-size: 3vh;
-    width: $point-size;
-    height: $point-size;
-    top: -$point-size / 2;
-    left: -$point-size / 2;
-    border-radius: $point-size / 2;
-  }
-  .line {
-    $line-width: 0.8vh;
-    width: 60px;
-    height: $line-width;
-    top: -$line-width / 2;
+  .point-n-line {
+    position: absolute;
+    .point {
+      $point-size: 3vh;
+      width: $point-size;
+      height: $point-size;
+      top: -$point-size / 2;
+      left: -$point-size / 2;
+      border-radius: $point-size / 2;
+    }
+    .line {
+      $line-width: 0.8vh;
+      width: 60px;
+      height: $line-width;
+      top: -$line-width / 2;
+    }
   }
   .rect {
     $width: min(140px, 40vw);
     $height: min(180px, 40vh);
     width: $width;
     height: $height;
-    bottom: -60px;
-    left: 60px;
-    border-radius: 16px;
+    left: 50px;
     box-sizing: border-box;
     padding: 16px;
-    transition: width .3s, height .4s;
+    transition: width .3s, height .4s, bottom .4s, top .4s;
     &.opened {
-      $width: min(300px, 90vw);
-      $height: min(400px, 90vh);
+      $width: min(400px, 92vw);
+      $height: min(600px, 92vh);
       width: $width;
       height: $height;
     }
