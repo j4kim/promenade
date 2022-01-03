@@ -10,11 +10,12 @@
     </div>
     <div
       class="rect"
+      ref="rect"
       :class="isOpen ? 'isopen' : ''"
-      @click="$emit('open', id, $el.offsetLeft)"
+      @click="open"
       :style="isDown ?
-        { bottom: isOpen ? '4vh' : `calc(${100-y}% - 60px)` } :
-        { top: isOpen ? '4vh' : `calc(${y}% - 60px)` }
+        { bottom: isOpen ? '4vh' : `calc(${100-y}% - 50px)` } :
+        { top: isOpen ? '4vh' : `calc(${y}% - 50px)` }
       "
     >
       <div v-if="!isOpen" class="summary">
@@ -22,6 +23,7 @@
       </div>
       <div v-else class="content">
         Content here
+        <button @click.stop="$parent.openBubbleId = null">close</button>
       </div>
     </div>
   </div>
@@ -37,6 +39,18 @@ export default {
     },
     isDown() {
       return this.y > 50
+    }
+  },
+
+  methods: {
+    open() {
+      let offsetLeft = this.$el.offsetLeft + 50
+      let windowWidth = window.innerWidth
+      // /!\ keep same values as in scss .rect.isopen width
+      let rectWidth = Math.min(400, 0.92 * windowWidth)
+      let margin = windowWidth - rectWidth
+      let left = offsetLeft - margin/2
+      this.$emit('open', this.id, left)
     }
   }
 }
