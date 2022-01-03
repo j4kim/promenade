@@ -85,9 +85,6 @@ export default {
       width: $width;
       height: $height;
     }
-    &:hover {
-      outline: 1px solid white;
-    }
   }
 }
 </style>
