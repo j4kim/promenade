@@ -74,7 +74,7 @@ export default {
       if (id === this.openBubbleId) return
       animateScrollTo([left, 0], {
         elementToScroll: this.$parent.$refs.scrollable,
-        minDuration: 400
+        minDuration: 800
       })
       this.openBubbleId = id
     }

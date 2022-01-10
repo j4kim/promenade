@@ -105,7 +105,7 @@ export default {
     left: 50px;
     box-sizing: border-box;
     padding: 16px;
-    transition: width .3s, height .4s, bottom .4s, top .4s;
+    transition: width .8s, height .8s, bottom .8s, top .8s;
     &.isopen {
       $width: min(400px, 92vw);
       $height: min(600px, 92%);
