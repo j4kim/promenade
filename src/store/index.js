@@ -12,7 +12,7 @@ let headers = new Headers({
 })
 
 function api(uri){
-  let base = 'https://shop.estellezamme.com/wp-json'
+  let base = 'https://estellezamme.com/wp-json'
   let url = `${base}/${uri}`
   return fetch(url, { headers }).then(r => r.json())
 }
